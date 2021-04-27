@@ -11,7 +11,7 @@
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
     <!-- Bootstrap CSS -->
-    
+
     <link rel="stylesheet" href="./css/style.css">
 
     <title>Makam Quiz</title>
@@ -71,9 +71,9 @@
                     <button class="answer" data="Nahwand">Nahwand</button>
                     <button id="next" class="rounded-corners">Next</button>
                 </div>
-                
 
-                
+
+
 
                 <audio id="audio" autoplay src="music/Ajam/Ajam_2.mp3"></audio>
                 <div id="notification"></div>
@@ -95,6 +95,18 @@
         var mark = 0;
         var currentMakam;
         var currentId;
+        var userId = "test";
+        var userData = {};
+        calculateNext();
+
+        getUser(userId).then(userDataFromFirebase => {
+            if (userDataFromFirebase == null || !userDataFromFirebase.answerCount) {
+                userData = createNewUser(userId);
+            } else {
+                userData = userDataFromFirebase;
+            }
+
+        });
 
         function calculateFileName(makamString, num) {
             return "music/" + makamString + "/" +
@@ -138,16 +150,17 @@
         Array.prototype.forEach.call(answers, function (element) {
             // Do stuff here
             element.onclick = function () {
-                
+
                 var checked = this.getAttribute('data');
-                if (checkRightAnswer(currentId, checked)) // good answer
+                var validResponse = MakamList[currentId];
+                if (validResponse === checked) // good answer
                 {
-                    writeResponse(MakamList[currentId], true);
+                    updateUserStateAfterAnswer(userData, validResponse, checked, true);
                     notifySuccess("Good");
                     mark++;
                 } else // bad answer
                 {
-                    writeResponse(MakamList[currentId], false);
+                    updateUserStateAfterAnswer(userData, validResponse, checked, false);
                     notifyFail("No Good\nRight Answer is: " + MakamList[currentId]);
                 }
 
@@ -160,7 +173,7 @@
                 return false;
             }
         });
-       
+
         function popupFinish(message) {
             $("#notification").html(message);
         }
@@ -173,12 +186,53 @@
             $("#notification").html(message).css("color", "red");
         }
 
-        function writeResponse(makam, success) {
-            firebase.database().ref('makam').set({
-                makam: makam,
-                isSuccess: success,
-                createdDate: new Date()
-            }, (error) => {
+
+        function createNewUser(userId) {
+            return {
+                userId: userId,
+                userName: "my-name",
+                createdTime: new Date().toISOString(),
+                updatedTime: new Date().toISOString(),
+                currentLevel: 0,
+                answerCount: 0,
+                perMakamPercentage: {}
+            };
+        }
+
+        function updateUserStateAfterAnswer(userData, validAnswer, answered, success) {
+            userData.answerCount++;
+
+            if (userData.perMakamPercentage[validAnswer] === undefined) {
+                userData.perMakamPercentage[validAnswer] = {
+                    success: 0,
+                    answered: 0
+                }
+            }
+
+            userData.perMakamPercentage[validAnswer].answered++;
+
+            if (success) {
+                userData.perMakamPercentage[validAnswer].success++;
+            }
+
+            userData.updatedTime = new Date().toISOString();
+
+            saveUserData(userData);
+
+        }
+
+        function getUser(userId) {
+            return firebase.database().ref(`makam/${userId}`).get().then((doc) => {
+                if (doc === undefined) {
+                    return null;
+                }
+
+                return doc.toJSON();
+            })
+        }
+
+        function saveUserData(userData) {
+            firebase.database().ref(`makam/${userData.userId}`).set(userData, (error) => {
                 if (error) {
                     console.log(error);
                 } else {
