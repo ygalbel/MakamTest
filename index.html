@@ -1,59 +1,89 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <script data-ad-client="ca-pub-7078720404215710" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<head>
+    <script data-ad-client="ca-pub-7078720404215710" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css" >
+    
+    <link rel="stylesheet" href="./css/style.css">
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
+    <title>Makam Quiz</title>
+
+</head>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyC8rhBOev8sPSV9qivHUsbRYRBceoeom8o",
+        authDomain: "makamtest-bb6a9.firebaseapp.com",
+        databaseURL: "https://makamtest-bb6a9.firebaseio.com",
+        projectId: "makamtest-bb6a9",
+        storageBucket: "makamtest-bb6a9.appspot.com",
+        messagingSenderId: "862551288809",
+        appId: "1:862551288809:web:6f51da3ede685f33b8f978",
+        measurementId: "G-7823BS2G20"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    console.log("firebase");
+
+    console.log(firebase);
+</script>
+
+<body>
+
     <h1 title="Makam Quiz">Makam Quiz</h1>
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="left">
                 <img src="pic/gx3651.jpg" width="289" height="600" alt="" title="" />
             </div>
-            <div class="col-8">
+            <div class="right">
                 <p><b id="questionIndex">1/20</b></p>
-                <div class="quiz" id="quiz" data-toggle="buttons">
-                    <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="Ajam">Ajam</label>
-                    <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="Bayat">Bayat</label>
-                    <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="Hjaz">Hjaz</label>
-                    <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="Bayat">Bayat</label>
-                    <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="Rast">Rast</label>
-                    <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="Saba">Saba</label>
-                    <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="Siga">Siga</label>
-                    <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="Nahwand">Nahwand</label>
+
+                <div id="answer_container">
+                    <button class="answer" data="Ajam">Ajam</button>
+                    <button class="answer" data="Bayat">Bayat</button>
+                    <button class="answer" data="Hjaz">Hjaz</button>
+                    <button class="answer" data="Rast">Rast</button>
+                    <button class="answer" data="Saba">Saba</button>
+                    <button class="answer" data="Siga">Siga</button>
+                    <button class="answer" data="Nahwand">Nahwand</button>
+                    <button id="next" class="rounded-corners">Next</button>
                 </div>
-                <!-- <h5>
-                    <br>
-                    <input type="radio" name="prep" value="Ajam" checked>Ajam<br>
-                    <input type="radio" name="prep" value="Bayat">Bayat<br>
-                    <input type="radio" name="prep" value="Hjaz">Hjaz<br>
-                    <input type="radio" name="prep" value="Nahwand">Nahwand<br>
-                    <input type="radio" name="prep" value="Rast">Rast<br>
-                    <input type="radio" name="prep" value="Saba">Saba<br>
-                    <input type="radio" name="prep" value="Siga">Siga
-                    <br><br><br>
-                </h5> -->
+                
 
-                <button id="submit" class="rounded-corners">Submit</button>
-                <button id="next" class="rounded-corners">Next</button>
+                
 
-                <audio id="audio" autoplay src="music/Ajam/Ajam (1).mp3"></audio>
+                <audio id="audio" autoplay src="music/Ajam/Ajam_2.mp3"></audio>
+                <div id="notification"></div>
+
             </div>
         </div>
+
     </div>
 
     </div>
-    
-
     <script type="text/javascript">
         var MakamList = ["Ajam", "Bayat", "Rast", "Hjaz",
             "Nahwand", "Saba", "Siga"
@@ -68,24 +98,7 @@
 
         function calculateFileName(makamString, num) {
             return "music/" + makamString + "/" +
-                makamString + " (" + num + ").mp3";
-        }
-
-        function getCheckedValue(radioObj) {
-            if (!radioObj)
-                return "";
-            var radioLength = radioObj.length;
-            if (radioLength == undefined)
-                if (radioObj.checked)
-                    return radioObj.value;
-                else
-                    return "";
-            for (var i = 0; i < radioLength; i++) {
-                if (radioObj[i].checked) {
-                    return radioObj[i].value;
-                }
-            }
-            return "";
+                makamString + "_" + num + ".mp3";
         }
 
         function calculateNext() {
@@ -105,7 +118,6 @@
             var link = document.getElementById("audio");
             currentMakam = calculateNext();
             link.setAttribute("src", currentMakam);
-            $('#submit').attr("disabled", false);
             return false;
         }
 
@@ -120,32 +132,72 @@
             $("#questionIndex").html(questionIndex + "/" + maxQuestion);
         }
 
-        document.getElementById("submit").onclick = function () {
-            $('#submit').attr("disabled", true);
-            var checked;
-            checked = getCheckedValue(document.getElementsByName("q_answer"));
-            if (checkRightAnswer(currentId, checked)) // good answer
-            {
-                alert("Good");
-                mark++;
-            } else // bad answer
-            {
-                alert("No Good\nRight Answer is: " + MakamList[currentId]);
-            }
+        var answers = document.getElementsByClassName("answer");
 
-            if (questionIndex == maxQuestion) // finish!
-            {
-                alert("Your Grade is: " + mark);
+
+        Array.prototype.forEach.call(answers, function (element) {
+            // Do stuff here
+            element.onclick = function () {
+                
+                var checked = this.getAttribute('data');
+                if (checkRightAnswer(currentId, checked)) // good answer
+                {
+                    writeResponse(MakamList[currentId], true);
+                    notifySuccess("Good");
+                    mark++;
+                } else // bad answer
+                {
+                    writeResponse(MakamList[currentId], false);
+                    notifyFail("No Good\nRight Answer is: " + MakamList[currentId]);
+                }
+
+                if (questionIndex == maxQuestion) // finish!
+                {
+                    popupFinish("Your Grade is: " + mark);
+                }
+
+                riseQuestionIndex();
+                return false;
             }
-            riseQuestionIndex();
-            return false;
+        });
+       
+        function popupFinish(message) {
+            $("#notification").html(message);
+        }
+
+        function notifySuccess(message) {
+            $("#notification").html(message).css("color", "green");
+        }
+
+        function notifyFail(message) {
+            $("#notification").html(message).css("color", "red");
+        }
+
+        function writeResponse(makam, success) {
+            firebase.database().ref('makam').set({
+                makam: makam,
+                isSuccess: success,
+                createdDate: new Date()
+            }, (error) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log("success");
+                    // Data saved successfully!
+                }
+            });
         }
     </script>
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+</body>
+
 </html>
