@@ -202,6 +202,10 @@
         function updateUserStateAfterAnswer(userData, validAnswer, answered, success) {
             userData.answerCount++;
 
+            if(userData.perMakamPercentage === undefined){
+                userData.perMakamPercentage = [];
+            }
+
             if (userData.perMakamPercentage[validAnswer] === undefined) {
                 userData.perMakamPercentage[validAnswer] = {
                     success: 0,
