@@ -97,6 +97,12 @@
         var currentId;
         var userId = "test";
         var userData = {};
+
+        // some makam names use different folder casing
+        var makamFolderMap = {
+            "Rast": "rast",
+            "Nahwand": "nahwand"
+        };
         calculateNext();
 
         getUser(userId).then(userDataFromFirebase => {
@@ -109,7 +115,8 @@
         });
 
         function calculateFileName(makamString, num) {
-            return "music/" + makamString + "/" +
+            var folder = makamFolderMap[makamString] || makamString;
+            return "music/" + folder + "/" +
                 makamString + "_" + num + ".mp3";
         }
 
@@ -226,12 +233,12 @@
         }
 
         function getUser(userId) {
-            return firebase.database().ref(`makam/${userId}`).get().then((doc) => {
-                if (doc === undefined) {
+            return firebase.database().ref(`makam/${userId}`).get().then((snapshot) => {
+                if (!snapshot.exists()) {
                     return null;
                 }
 
-                return doc.toJSON();
+                return snapshot.val();
             })
         }
 
